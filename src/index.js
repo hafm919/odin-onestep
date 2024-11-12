@@ -1,6 +1,8 @@
 import './styles.css';
 import logo from './logo.png';
 
+import UI from './UI.js'
+
 function initializeHome() {
     // Create sidebar
     const sidebar = document.createElement('div');
@@ -21,7 +23,7 @@ function initializeHome() {
     dayImpContainer.className = 'day-imp-container';
 
     const dayProject = document.createElement('div');
-    dayProject.className = 'project';
+    dayProject.className = 'project selected';
     const dayIcon = document.createElement('i');
     dayIcon.className = 'material-icons-outlined day-icon';
     dayIcon.textContent = 'light_mode';
@@ -47,7 +49,7 @@ function initializeHome() {
     sidebar.appendChild(dayImpContainer);
 
     const projectsContainer = document.createElement('div');
-    projectsContainer.className = 'projects-container';
+    projectsContainer.id = 'projects-container';
     sidebar.appendChild(projectsContainer);
 
     // New project input container
@@ -57,14 +59,13 @@ function initializeHome() {
     const inputContainer = document.createElement('div');
     inputContainer.className = 'input-container';
     const newProjectInput = document.createElement('input');
-    newProjectInput.className = 'new-project-input';
     newProjectInput.type = 'text';
-    newProjectInput.id = 'newproj';
+    newProjectInput.id = 'new-project-input';
     newProjectInput.placeholder = 'new project';
     inputContainer.appendChild(newProjectInput);
 
     const projectSubmit = document.createElement('div');
-    projectSubmit.id = 'projectSubmit';
+    projectSubmit.id = 'new-project-submit';
     projectSubmit.className = 'submit';
     const addIcon = document.createElement('i');
     addIcon.className = 'material-icons-outlined add-icon';
@@ -84,17 +85,18 @@ function initializeHome() {
     addTasksContainer.className = 'add-tasks-container';
 
     const taskNameInput = document.createElement('input');
-    taskNameInput.className = 'task-name-input';
+    taskNameInput.className = 'task-input';
     taskNameInput.type = 'text';
-    taskNameInput.id = 'taskName';
+    taskNameInput.id = 'task-name-input';
     taskNameInput.placeholder = 'what do you want to do?';
 
     const taskDateInput = document.createElement('input');
-    taskDateInput.className = 'task-name-input';
+    taskDateInput.className = 'task-input';
+    taskDateInput.id = 'task-date-input';
     taskDateInput.type = 'date';
 
     const prioritySelect = document.createElement('select');
-    prioritySelect.id = 'priority-select';
+    prioritySelect.id = 'task-priority-input';
     const priorityPlaceholder = document.createElement('option');
     priorityPlaceholder.value = '';
     priorityPlaceholder.disabled = true;
@@ -111,7 +113,7 @@ function initializeHome() {
     });
 
     const taskSubmit = document.createElement('div');
-    taskSubmit.id = 'taskSubmit';
+    taskSubmit.id = 'task-submit';
     taskSubmit.className = 'submit';
     const taskAddIcon = document.createElement('i');
     taskAddIcon.className = 'material-icons-outlined add-icon';
@@ -136,6 +138,8 @@ function initializeHome() {
     // Append sidebar and main to the document body
     document.body.appendChild(sidebar);
     document.body.appendChild(main);
+
+    UI.initialize()
 }
 
 initializeHome();

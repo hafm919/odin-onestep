@@ -45,7 +45,7 @@ body {
     padding: 0.625rem;
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.5rem;
     cursor: pointer;
     border-radius: 0.625rem;
     background-color: var(--sidebar);
@@ -55,6 +55,27 @@ body {
 .project:hover {
     background-color: var(--selected-bg);
 }
+
+#projects-container{
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.user-project{
+    font-size: 1rem;
+    height: 1.5rem;
+    gap: 1.25rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+.selected{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: var(--selected-bg);
+
+}
+
 
 .main {
     background-color: var(--main-bg);
@@ -79,6 +100,10 @@ body {
 .day-icon {
     font-size: 2.5rem;
     color: var(--day);
+}
+.project-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
 }
 
 .imp-icon {
@@ -105,7 +130,7 @@ body {
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 
-.new-project-input {
+#new-project-input {
     font-family: 'Roboto', sans-serif;
     color: var(--input-text);
     font-size: 1.25rem;
@@ -136,7 +161,7 @@ body {
     padding: 0.9375rem;
 }
 
-.task-name-input {
+.task-input {
     font-family: 'Roboto', sans-serif;
     color: var(--input-text);
     font-size: 1rem;
@@ -150,7 +175,7 @@ body {
     border-bottom: 0.3rem solid var(--border-color);
 }
 
-#priority-select {
+#task-priority-input {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     margin: 0 auto;
