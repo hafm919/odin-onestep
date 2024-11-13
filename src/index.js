@@ -127,7 +127,8 @@ function initializeHome() {
 
     // Tasks container
     const tasksContainer = document.createElement('div');
-    tasksContainer.className = 'tasks-container no-tasks';
+    tasksContainer.id = 'tasks-container'
+    tasksContainer.className = 'no-tasks';
     const noTasksMessage = document.createElement('p');
     noTasksMessage.innerHTML = 'One step at a time!<br>Add a new task';
     tasksContainer.appendChild(noTasksMessage);

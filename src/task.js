@@ -6,7 +6,16 @@ export default class Task{
         this.priority = priority;
         this.id = Task.globalTaskId++;
     }
-    print(){
-        console.log(this.title,this.date,this.priority,this.id,Task.globalTaskId)
+    getTitle(){
+        return this.title
+    }
+    getDate(){
+        return this.date
+    }
+    getPriority(){
+        return this.priority
+    }
+    getId(){
+        return this.id
     }
 }

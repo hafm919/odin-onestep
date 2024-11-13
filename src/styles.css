@@ -9,10 +9,15 @@
     --imp: #A93436;
     --input-bg: #FFFFFF;
     --input-text: #333333;
-    --task-bg: #7CD4D0;
+    --task-input-bg: #7CD4D0;
     --no-tasks-text: gray;
     --selected-bg: #F6FFE1;
     --border-color: transparent;
+    --task-bg:#F9FBFA;
+    --task-text:#909391;
+    --high:#C37E90;
+    --low:#97C2AF;
+    --medium:#F1DDA2;
 }
 
 * {
@@ -42,18 +47,21 @@ body {
 }
 
 .project {
+    box-sizing: border-box;
     padding: 0.625rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
     cursor: pointer;
     border-radius: 0.625rem;
-    background-color: var(--sidebar);
-    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+    transition: border 0.2s ease;
+
 }
 
 .project:hover {
-    background-color: var(--selected-bg);
+    box-sizing: border-box;
+    border: 2px var(--accent) solid;
 }
 
 #projects-container{
@@ -155,7 +163,7 @@ body {
 
 .add-tasks-container {
     display: flex;
-    background-color: var(--task-bg);
+    background-color: var(--task-input-bg);
     height: 4.6875rem;
     border-radius: 0.625rem;
     padding: 0.9375rem;
@@ -198,4 +206,73 @@ body {
     font-size: 2.8rem;
     font-weight: 300;
     color: var(--no-tasks-text);
+}
+
+.task-card{
+    display: flex;
+    background-color: var(--task-bg);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 4.6875rem;
+    border-radius: 0.625rem;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--task-text);
+    font-weight: 100;
+    max-width: 100%;
+
+
+}
+
+.check-box{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    border: 1px  var(--accent) solid;
+    height: 100%;
+}
+
+.unchecked-icon{
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+i{
+    user-select: none;
+}
+
+.task-options{
+    display: flex;
+    gap:5px;
+}
+
+.option-icon{
+    color: var(--task-text);
+    cursor: pointer;
+
+}
+
+
+
+.high{
+    border-left: 10px var(--high) solid;
+}
+.medium{
+    border-left: 10px var(--medium) solid;
+}
+.low{
+    border-left: 10px var(--low) solid;
+}
+
+.task-text{
+    font-weight: 400;
+}
+
+#tasks-container{
+    padding-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
 }

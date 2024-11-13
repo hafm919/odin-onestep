@@ -4,7 +4,7 @@ export default class ProjectManager{
     static selectedProject = 'your-day';
     static projectList = {'your-day': new Project('your-day')}
     static addToProject(task){
-        let project = ProjectManager.projectList[this.selectedProject]
+        let project = ProjectManager.projectList[ProjectManager.selectedProject]
         project.addTask(task)
     }
     static setSelectedProject(project){
@@ -18,5 +18,12 @@ export default class ProjectManager{
         ProjectManager.projectList[name]= newProject;
         ProjectManager.setSelectedProject(name);
         console.log()
+    }
+    static hasTasks(){
+        if (ProjectManager.getCurrentTasks().length>0){
+            return true
+        }
+        return false
+
     }
 }
