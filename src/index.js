@@ -24,6 +24,7 @@ function initializeHome() {
 
     const dayProject = document.createElement('div');
     dayProject.className = 'project selected';
+    dayProject.id = 'your-day';
     const dayIcon = document.createElement('i');
     dayIcon.className = 'material-icons-outlined day-icon';
     dayIcon.textContent = 'light_mode';
@@ -34,6 +35,7 @@ function initializeHome() {
 
     const importantProject = document.createElement('div');
     importantProject.className = 'project';
+    importantProject.id = 'important';
     const importantIcon = document.createElement('i');
     importantIcon.className = 'material-icons-outlined imp-icon';
     importantIcon.textContent = 'star';

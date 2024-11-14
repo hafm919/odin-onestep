@@ -9,6 +9,11 @@ export default class UI{
         addTaskButton.addEventListener('click',UI.createTask)
         const addProjectButton = document.getElementById('new-project-submit')
         addProjectButton.addEventListener('click',UI.createProject)
+
+        const dayProject = document.getElementById('your-day');
+        const importantProject = document.getElementById('important');
+        dayProject.addEventListener('click',UI.selectProject);
+        importantProject.addEventListener('click',UI.selectProject);
         
         
     }
@@ -17,12 +22,7 @@ export default class UI{
         const taskDateInput = document.getElementById('task-date-input');
         const taskPriorityInput = document.getElementById('task-priority-input');
         const taskContainer = document.getElementById('tasks-container')
-        const hasTasks = ProjectManager.hasTasks()
-        if (!hasTasks){
-            taskContainer.classList.remove('no-tasks');
-            taskContainer.innerHTML='';
-        }
-        
+        const selectedProject = ProjectManager.selectedProject
 
         const taskNameVal = taskNameInput.value;
         const taskDateVal = taskDateInput.value;
@@ -30,38 +30,146 @@ export default class UI{
 
         const newTask = new Task(taskNameVal,taskDateVal,taskPriorityVal);
         ProjectManager.addToProject(newTask);
-        console.log(ProjectManager.getCurrentTasks());
         UI.clearInputs([taskNameInput,taskDateInput,taskPriorityInput]);
 
-        const taskCard = UI.createTaskCard(newTask);
-        taskContainer.appendChild(taskCard);
-        
+        if(selectedProject ==='your-day'){
+            UI.renderDayTasks()
+        }
+        else if(selectedProject ==='important'){
+            UI.renderImportantTasks()
+        }
+        else{
+            UI.renderProjectTasks();
+        }
 
         
+        
+    }
+    
+    static renderProjectTasks(){
+        const hasTasks = ProjectManager.hasTasks()
+        const taskContainer = document.getElementById('tasks-container');
+        if (!hasTasks){
+            UI.renderEmptyProject()
+            return
+        }
+
+        taskContainer.classList.remove('no-tasks');
+        taskContainer.innerHTML='';
+
+        const tasks = ProjectManager.getCurrentTasks();
+
+        tasks.forEach(task => {
+            const taskCard = UI.createTaskCard(task)
+            taskContainer.appendChild(taskCard);
+        });
+        
+        
+    }
+
+    static renderDayTasks(){
+        const hasTasks = ProjectManager.hasTasks() //tasks directly added to day
+        let dayTasks = false // tasks added from other projects
+        const taskContainer = document.getElementById('tasks-container');
+
+        taskContainer.classList.remove('no-tasks');
+        taskContainer.innerHTML='';
+        const curTasks = ProjectManager.getCurrentTasks();
+        const alltasks = ProjectManager.getAllTasks();
+
+        curTasks.forEach(task => {
+                const taskCard = UI.createTaskCard(task)
+                taskContainer.appendChild(taskCard);
+                dayTasks = true;
+        });
+
+        alltasks.forEach(task => {
+            if (task.day){
+                const taskCard = UI.createTaskCard(task)
+                taskContainer.appendChild(taskCard);
+                dayTasks = true
+            }
+        });
+
+        if (!hasTasks && !dayTasks){
+            UI.renderEmptyProject()
+            return
+        }
+        
+
+    }
+
+    static renderImportantTasks(){
+        const hasTasks = ProjectManager.hasTasks() //tasks directly added to imp
+        let impTasks = false // tasks added from other projects
+        const taskContainer = document.getElementById('tasks-container');
+
+        taskContainer.classList.remove('no-tasks');
+        taskContainer.innerHTML='';
+
+        const curTasks = ProjectManager.getCurrentTasks();
+        const alltasks = ProjectManager.getAllTasks();
+
+        curTasks.forEach(task => {
+            const taskCard = UI.createTaskCard(task)
+            taskContainer.appendChild(taskCard);
+            dayTasks = true;
+        });
+
+
+        alltasks.forEach(task => {
+            if (task.important){
+                const taskCard = UI.createTaskCard(task)
+                taskContainer.appendChild(taskCard);
+                impTasks = true
+            }
+        });
+
+        if (!hasTasks && !impTasks){
+            UI.renderEmptyProject()
+            return
+        }
+        
+
+    }
+
+    static renderEmptyProject(){
+        const tasksContainer = document.getElementById('tasks-container');
+        tasksContainer.innerHTML = '';
+        tasksContainer.classList.add('no-tasks');
+        const noTasksMessage = document.createElement('p');
+        noTasksMessage.innerHTML = 'One step at a time!<br>Add a new task';
+        tasksContainer.appendChild(noTasksMessage);
     }
 
     static createTaskCard(task){
         const taskCard = document.createElement('div');
+        const taskText = document.createElement('div');
         const taskTitle = document.createElement('h3');
         const taskDate = document.createElement('h3');
         const checkBox = UI.createCheckBox();
-        const taskOptions = UI.createTaskOptions();
+        const taskOptions = UI.createTaskOptions(task);
+
         taskCard.className = `task-card ${task.getPriority()}`;
+        taskCard.id = task.getId();
+        taskText.className = 'task-text-container';
         taskTitle.innerHTML = task.getTitle();
         taskTitle.className = 'task-text';
         taskDate.innerHTML = task.getDate();
         taskDate.className = 'task-text';
 
+        taskText.appendChild(taskTitle);
+        taskText.appendChild(taskDate);
+
         taskCard.appendChild(checkBox)
-        taskCard.appendChild(taskTitle);
-        taskCard.appendChild(taskDate);
+        taskCard.appendChild(taskText);
         taskCard.appendChild(taskOptions);
 
         return taskCard;
 
 
     }
-    static createTaskOptions(){
+    static createTaskOptions(task){
         const taskOptions = document.createElement('div');
         taskOptions.className = 'task-options';
         const icons = ['edit','light_mode','star','delete']
@@ -71,6 +179,18 @@ export default class UI{
             icon.className = 'material-icons-outlined unchecked-icon option-icon';
             icon.textContent = icons[i];
             taskOptions.appendChild(icon)
+            let optionFunc = ()=>{console.log('yet to implement')};
+            switch (icons[i]){
+                case 'star':
+                     optionFunc = ProjectManager.addToImportant
+                     break;
+                case 'light_mode':
+                     optionFunc = ProjectManager.addToMyDay;
+            }
+            icon.addEventListener('click',()=>{
+                optionFunc(task);
+            })
+
         }
         return taskOptions;
 
@@ -124,7 +244,18 @@ export default class UI{
         let projects = document.getElementsByClassName('selected')
         projects[0].classList.remove('selected');
         selectedProject.classList.add('selected');
-        console.log(ProjectManager.selectedProject)
+        if(selectedProject.id ==='your-day'){
+            UI.renderDayTasks()
+        }
+        else if(selectedProject.id ==='important'){
+            UI.renderImportantTasks()
+        }
+        else{
+            UI.renderProjectTasks();
+        }
+        
+
+
     }
     
 }

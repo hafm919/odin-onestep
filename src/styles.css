@@ -198,9 +198,10 @@ body {
 }
 
 .no-tasks {
-    padding-top: 9.375rem;
-    padding-left: 6.25rem;
+    padding-top: 9.375rem !important; 
+    padding-left: 6.25rem !important;
     display: flex;
+    flex-direction: row !important;
     height: 100%;
     align-items: center;
     font-size: 2.8rem;
@@ -215,8 +216,8 @@ body {
     height: 4.6875rem;
     border-radius: 0.625rem;
     padding: 1rem;
+    gap: 20px;
     align-items: center;
-    justify-content: space-between;
     color: var(--task-text);
     font-weight: 100;
     max-width: 100%;
@@ -245,6 +246,7 @@ i{
 
 .task-options{
     display: flex;
+    margin-left: auto;
     gap:5px;
 }
 
@@ -252,6 +254,13 @@ i{
     color: var(--task-text);
     cursor: pointer;
 
+}
+
+.task-text-container{
+    display: flex;
+    gap: 30px;
+    width: 70%;
+    justify-content: space-between;
 }
 
 

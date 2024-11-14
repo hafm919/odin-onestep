@@ -5,9 +5,19 @@ export default class Task{
         this.date = date
         this.priority = priority;
         this.id = Task.globalTaskId++;
+        this.done = false;
+        this.day = false
+        this.important = false
+        this.deleted = false
     }
     getTitle(){
         return this.title
+    }
+    addTaskToMyDay(){
+        this.day = true;
+    }
+    addTaskToImportant(){
+        this.important = true;
     }
     getDate(){
         return this.date
@@ -18,4 +28,11 @@ export default class Task{
     getId(){
         return this.id
     }
+    finish(){
+        this.done = true;
+    }
+    unfinish(){
+        this.done = false
+    }
+
 }
