@@ -96,6 +96,8 @@ body {
     flex-direction: column;
     padding: 1.875rem;
     padding-top: 3rem;
+    max-height: 100vh;
+    overflow: auto;
 }
 
 .day-imp-container {
@@ -233,11 +235,26 @@ body {
     border-radius: 100%;
     border: 1px  var(--accent) solid;
     height: 100%;
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.check-box:hover{
+    transform: scale(1.05);
 }
 
 .unchecked-icon{
     font-size: 2rem;
     color: var(--accent);
+}
+
+.checked-icon{
+    font-size: 2rem;
+    color: var(--main-bg);
+}
+
+.checked{
+    background-color: var(--accent);
 }
 
 i{
@@ -253,9 +270,20 @@ i{
 .option-icon{
     color: var(--task-text);
     cursor: pointer;
-
+    transition: transform .2s;
+}
+.option-icon:hover{
+    transform: scale(1.05);
 }
 
+
+.option-day{
+    color: var(--day)
+}
+.option-important{
+    color:var(--imp)
+
+}
 .task-text-container{
     display: flex;
     gap: 30px;
@@ -281,7 +309,17 @@ i{
 
 #tasks-container{
     padding-top: 1.25rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap:10px;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+
+.strike{
+    text-decoration: line-through;
+
 }

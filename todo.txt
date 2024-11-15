@@ -1,0 +1,7 @@
+//known bugs
+
+
+//remaining features
+--check option
+-- edit option
+-- validation of inputs

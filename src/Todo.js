@@ -13,10 +13,39 @@ export default class ProjectManager{
     static addToImportant(task){
         task.addTaskToImportant();
     }
+    static removeFromImportant(task){
+        task.removeFromImportant()
+    }
 
     static addToMyDay(task){
         task.addTaskToMyDay();
     }
+    static removeFromDay(task){
+        task.removeFromDay();
+    }
+
+    static removeTask(task){
+        const selectedProject = ProjectManager.getSelectedProject()
+        if (selectedProject=='your-day' && task.day){
+            task.removeFromDay();
+        }
+        else if (selectedProject=='important' && task.important){
+            task.removeFromImportant();
+        }
+        else{
+            task.remove();
+            ProjectManager.projectList[selectedProject].removeTask()
+        }
+        
+    }
+
+    static finishTask(task){
+        task.finish()
+    }
+    static unfinishTask(task){
+        task.unfinish()
+    }
+
 
     static getSelectedProject(){
         return ProjectManager.selectedProject;
@@ -37,12 +66,7 @@ export default class ProjectManager{
         console.log()
     }
     static hasTasks(){
-        if (ProjectManager.getCurrentTasks().length>0){
-            
-            return true
-        }
-        console.log(ProjectManager.getCurrentTasks());
-        return false
+        return ProjectManager.projectList[ProjectManager.getSelectedProject()].hasTasks();
 
     }
 }

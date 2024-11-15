@@ -32,15 +32,7 @@ export default class UI{
         ProjectManager.addToProject(newTask);
         UI.clearInputs([taskNameInput,taskDateInput,taskPriorityInput]);
 
-        if(selectedProject ==='your-day'){
-            UI.renderDayTasks()
-        }
-        else if(selectedProject ==='important'){
-            UI.renderImportantTasks()
-        }
-        else{
-            UI.renderProjectTasks();
-        }
+        UI.renderTasks();
 
         
         
@@ -60,8 +52,10 @@ export default class UI{
         const tasks = ProjectManager.getCurrentTasks();
 
         tasks.forEach(task => {
-            const taskCard = UI.createTaskCard(task)
-            taskContainer.appendChild(taskCard);
+            if(!task.deleted){
+                const taskCard = UI.createTaskCard(task)
+                taskContainer.appendChild(taskCard);
+            }
         });
         
         
@@ -78,13 +72,15 @@ export default class UI{
         const alltasks = ProjectManager.getAllTasks();
 
         curTasks.forEach(task => {
-                const taskCard = UI.createTaskCard(task)
-                taskContainer.appendChild(taskCard);
-                dayTasks = true;
+                if(!task.deleted){
+                    const taskCard = UI.createTaskCard(task)
+                    taskContainer.appendChild(taskCard);
+                }
+                
         });
 
         alltasks.forEach(task => {
-            if (task.day){
+            if (task.day && !task.deleted){
                 const taskCard = UI.createTaskCard(task)
                 taskContainer.appendChild(taskCard);
                 dayTasks = true
@@ -111,14 +107,17 @@ export default class UI{
         const alltasks = ProjectManager.getAllTasks();
 
         curTasks.forEach(task => {
-            const taskCard = UI.createTaskCard(task)
-            taskContainer.appendChild(taskCard);
-            dayTasks = true;
+            if(!task.deleted){
+                const taskCard = UI.createTaskCard(task)
+                taskContainer.appendChild(taskCard);
+
+            }
+            
         });
 
 
         alltasks.forEach(task => {
-            if (task.important){
+            if (task.important && !task.deleted){
                 const taskCard = UI.createTaskCard(task)
                 taskContainer.appendChild(taskCard);
                 impTasks = true
@@ -147,7 +146,7 @@ export default class UI{
         const taskText = document.createElement('div');
         const taskTitle = document.createElement('h3');
         const taskDate = document.createElement('h3');
-        const checkBox = UI.createCheckBox();
+        const checkBox = UI.createCheckBox(task);
         const taskOptions = UI.createTaskOptions(task);
 
         taskCard.className = `task-card ${task.getPriority()}`;
@@ -161,6 +160,10 @@ export default class UI{
         taskText.appendChild(taskTitle);
         taskText.appendChild(taskDate);
 
+        if(task.done){
+            taskText.classList.add('strike');
+        }
+
         taskCard.appendChild(checkBox)
         taskCard.appendChild(taskText);
         taskCard.appendChild(taskOptions);
@@ -173,8 +176,13 @@ export default class UI{
         const taskOptions = document.createElement('div');
         taskOptions.className = 'task-options';
         const icons = ['edit','light_mode','star','delete']
+        const selectedProject = ProjectManager.getSelectedProject()
+
 
         for (let i in icons){
+            if (selectedProject=='your-day' &&(icons[i]=='light_mode' || icons[i]=='star') || selectedProject=='important'&&(icons[i]=='light_mode' || icons[i]=='star')){
+                        continue;
+            }
             const icon = document.createElement('i');
             icon.className = 'material-icons-outlined unchecked-icon option-icon';
             icon.textContent = icons[i];
@@ -182,13 +190,37 @@ export default class UI{
             let optionFunc = ()=>{console.log('yet to implement')};
             switch (icons[i]){
                 case 'star':
-                     optionFunc = ProjectManager.addToImportant
+                    
+                    if (task.important){
+                        icon.classList.add('option-important')
+                        optionFunc = ProjectManager.removeFromImportant
+                    }
+                    else{
+                        icon.classList.remove('option-important')
+                        optionFunc = ProjectManager.addToImportant
+
+                    }
                      break;
                 case 'light_mode':
-                     optionFunc = ProjectManager.addToMyDay;
+                    if (task.day){
+                        icon.classList.add('option-day');
+                        optionFunc = ProjectManager.removeFromDay
+                    }
+                    else{
+                        icon.classList.remove('option-day');
+                        optionFunc = ProjectManager.addToMyDay;
+                    }
+                     
+                     break
+                case 'delete':
+                    optionFunc = ProjectManager.removeTask;
+                    break;
+            
+
             }
             icon.addEventListener('click',()=>{
                 optionFunc(task);
+                UI.renderTasks()
             })
 
         }
@@ -196,14 +228,31 @@ export default class UI{
 
     }
 
-    static createCheckBox(){
+    static createCheckBox(task){
         const checkBox = document.createElement('div')
+        let checkFunc = ProjectManager.finishTask
         checkBox.className = 'check-box'
         const checkIcon = document.createElement('i');
         checkIcon.className = 'material-icons-outlined unchecked-icon';
         checkIcon.textContent = 'check';
 
+        if(task.done){
+            checkFunc = ProjectManager.unfinishTask
+            checkBox.classList.add('checked');
+            checkIcon.classList.remove('unchecked-icon');
+            checkIcon.classList.add('checked-icon');
+
+        }
         checkBox.appendChild(checkIcon);
+        
+
+
+
+        checkBox.addEventListener('click',()=>{
+            checkFunc(task)
+            UI.renderTasks();
+            
+        })
 
         return checkBox
     }
@@ -238,21 +287,26 @@ export default class UI{
         });
     
     }
+
+    static renderTasks(){
+        const selectedProject = ProjectManager.getSelectedProject();
+        if(selectedProject ==='your-day'){
+            UI.renderDayTasks()
+        }
+        else if(selectedProject ==='important'){
+            UI.renderImportantTasks()
+        }
+        else{
+            UI.renderProjectTasks();
+        }
+    }
     static selectProject(e){
         let selectedProject = e.currentTarget
         ProjectManager.setSelectedProject(selectedProject.id);
         let projects = document.getElementsByClassName('selected')
         projects[0].classList.remove('selected');
         selectedProject.classList.add('selected');
-        if(selectedProject.id ==='your-day'){
-            UI.renderDayTasks()
-        }
-        else if(selectedProject.id ==='important'){
-            UI.renderImportantTasks()
-        }
-        else{
-            UI.renderProjectTasks();
-        }
+        UI.renderTasks()
         
 
 

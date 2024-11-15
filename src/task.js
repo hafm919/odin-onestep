@@ -16,9 +16,16 @@ export default class Task{
     addTaskToMyDay(){
         this.day = true;
     }
+    removeFromDay(){
+        this.day = false
+    }
     addTaskToImportant(){
         this.important = true;
     }
+    removeFromImportant(){
+        this.important = false
+    }
+    
     getDate(){
         return this.date
     }
@@ -33,6 +40,9 @@ export default class Task{
     }
     unfinish(){
         this.done = false
+    }
+    remove(){
+        this.deleted = true
     }
 
 }
