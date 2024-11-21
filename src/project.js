@@ -3,6 +3,7 @@
         this.tasks=[]
         this.name=name
         this.taskCount = taskCount
+        this.deleted = false
     }
     getTasks(){
         return this.tasks
@@ -20,4 +21,8 @@
         }
         return false
     }
+    remove(){
+        this.deleted = true;
+    }
+
 }

@@ -270,10 +270,13 @@ export default class UI{
     }
 
     static renderProjects(){
-        let projectNames = ProjectManager.getAllProjectNames()
+        let projectNames = ProjectManager.getAllProjectNames();
+        const projectList = document.getElementById('projects-container')
+        projectList.innerHTML = '';
         for(let i in projectNames){
-            if (projectNames[i]!='your-day'&&projectNames[i]!='important'){
-                UI.renderProject(projectNames[i])
+            let project = projectNames[i]
+            if (project!='your-day'&&project!='important' && !ProjectManager.checkIfDeleted(project)){
+                UI.renderProject(project)
             }
             
         }
@@ -284,14 +287,41 @@ export default class UI{
         const projectList = document.getElementById('projects-container')
         newProject.className = 'project user-project';
         newProject.id = projectName;
+
+        if(projectName==ProjectManager.getSelectedProject()){
+            newProject.classList.add('selected');
+        }
+
+
         const projectIcon = document.createElement('i');
+        const deleteIcon = document.createElement('i')
         projectIcon.className = 'material-icons-outlined project-icon';
         projectIcon.textContent = 'receipt_long';
+
+        deleteIcon.className = 'material-icons-outlined delete-icon';
+        deleteIcon.textContent = 'delete';
         const projectTitle = document.createElement('h3');
         projectTitle.textContent = projectName;
         newProject.addEventListener('click',UI.selectProject)
+
+        deleteIcon.addEventListener('click',(e)=>{
+            let projectName = e.currentTarget.parentNode.id;
+            console.log(projectName);
+            ProjectManager.deleteProject(projectName);
+            console.log(ProjectManager.getSelectedProject());
+            console.log(projectName);
+            if(ProjectManager.getSelectedProject()==projectName){
+                const dayProject = document.getElementById('your-day');
+                dayProject.dispatchEvent(new Event('click'));
+                
+            }
+            
+            UI.renderProjects();
+            e.stopPropagation();
+        })
         newProject.appendChild(projectIcon);
         newProject.appendChild(projectTitle);
+        newProject.appendChild(deleteIcon);
         projectList.appendChild(newProject);
 
         return newProject
@@ -333,15 +363,17 @@ export default class UI{
         let selectedProject = e.currentTarget
         ProjectManager.setSelectedProject(selectedProject.id);
         let projects = document.getElementsByClassName('selected')
-        projects[0].classList.remove('selected');
+        console.log('fired')
+        if(projects.length>0){
+            projects[0].classList.remove('selected');
+        }
+        
         selectedProject.classList.add('selected');
         UI.renderTasks()
-        
-
-
     }
+
+    
     static showEditDialog(task){
-        console.log(task)
         const editDialog = document.getElementById('editTaskDialog');
         const editTitle = document.getElementById('task-name-edit-input');
         const editDate = document.getElementById('task-date-edit-input');

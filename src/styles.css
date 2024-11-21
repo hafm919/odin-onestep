@@ -116,6 +116,20 @@ body {
     color: var(--accent);
 }
 
+.delete-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-left: auto;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.delete-icon:hover{
+    transform: scale(1.05);
+}
+
+
+
 .imp-icon {
     font-size: 2.5rem;
     color: var(--imp);

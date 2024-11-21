@@ -1,5 +1,4 @@
 //known bugs
-
+-- removing project doesn't delete tasks in them
 
 //remaining features
--- local storage

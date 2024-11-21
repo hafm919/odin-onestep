@@ -16,6 +16,9 @@ export default class ProjectManager{
         storedProjectList = JSON.parse(storedProjectList);
 
         for(const projectName in storedProjectList){
+            if (storedProjectList[projectName]['deleted']){
+                continue;
+            }
             let project = new Project(projectName)
             ProjectManager.projectList[projectName] = project;
             
@@ -87,6 +90,12 @@ export default class ProjectManager{
     static setSelectedProject(project){
         ProjectManager.selectedProject = project
     }
+    static deleteProject(project){
+        ProjectManager.projectList[project].remove()
+    }
+    static checkIfDeleted(project){
+        return ProjectManager.projectList[project].deleted;
+    }
     static getCurrentTasks(){
         return ProjectManager.projectList[ProjectManager.selectedProject].getTasks()
     }
@@ -97,7 +106,6 @@ export default class ProjectManager{
         let newProject = new Project(name);
         ProjectManager.projectList[name]= newProject;
         ProjectManager.setSelectedProject(name);
-        console.log()
     }
     static hasTasks(){
         return ProjectManager.projectList[ProjectManager.getSelectedProject()].hasTasks();
