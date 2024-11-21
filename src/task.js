@@ -35,6 +35,16 @@ export default class Task{
     getId(){
         return this.id
     }
+    setTitle(title){
+        this.title = title;
+    }
+    setDate(date){
+         this.date = date;
+    }
+    setPriority(priority){
+         this.priority = priority;
+    }
+    
     finish(){
         this.done = true;
     }

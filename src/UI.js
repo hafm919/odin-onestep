@@ -19,6 +19,10 @@ export default class UI{
     }
     static createTask(){
         const taskNameInput = document.getElementById('task-name-input');
+        if(!taskNameInput.checkValidity()){
+            taskNameInput.reportValidity()
+            return
+        }
         const taskDateInput = document.getElementById('task-date-input');
         const taskPriorityInput = document.getElementById('task-priority-input');
         const taskContainer = document.getElementById('tasks-container')
@@ -215,6 +219,9 @@ export default class UI{
                 case 'delete':
                     optionFunc = ProjectManager.removeTask;
                     break;
+                case 'edit':
+                    optionFunc = UI.showEditDialog
+                    break
             
 
             }
@@ -258,6 +265,10 @@ export default class UI{
     }
     static createProject(){
         const projectNameInput = document.getElementById('new-project-input');
+        if(!projectNameInput.checkValidity()){
+            projectNameInput.reportValidity()
+            return
+        }
         const projectName  = projectNameInput.value;
         ProjectManager.createProject(projectName);
         let newProject = document.createElement('div');
@@ -270,6 +281,8 @@ export default class UI{
         const projectTitle = document.createElement('h3');
         projectTitle.textContent = projectName;
         newProject.addEventListener('click',UI.selectProject)
+
+        
         
         
         newProject.appendChild(projectIcon);
@@ -311,5 +324,44 @@ export default class UI{
 
 
     }
+    static showEditDialog(task){
+        console.log(task)
+        const editDialog = document.getElementById('editTaskDialog');
+        const editTitle = document.getElementById('task-name-edit-input');
+        const editDate = document.getElementById('task-date-edit-input');
+        const editPriority = document.getElementById('task-edit-priority-input');
+        const editForm = document.getElementById('editTaskForm');
+        let editSubmit = document.getElementById('task-edit-submit');
+        const newEditSubmit = editSubmit.cloneNode(true)
+        editSubmit.parentNode.replaceChild(newEditSubmit,editSubmit);
+
+        editSubmit = document.getElementById('task-edit-submit');
+
+        editTitle.value = task.getTitle();
+        editDate.value = task.getDate();
+        editPriority.value = task.getPriority();
+
+        
+        editSubmit.removeEventListener
+        editSubmit.addEventListener('click',(e)=>{
+
+            if (editForm.checkValidity()) {
+                let newTitle = editTitle.value
+                let newDate  = editDate.value
+                let newPriority = editPriority.value
+            
+                ProjectManager.editTask(newTitle,newDate,newPriority,task);
+                UI.renderTasks();
+                
+            } else {
+                editForm.reportValidity(); // Highlights invalid fields
+            }
+            
+           
+            
+        })
+        editDialog.showModal();
+    }
+    
     
 }

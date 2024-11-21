@@ -64,6 +64,7 @@ function initializeHome() {
     newProjectInput.type = 'text';
     newProjectInput.id = 'new-project-input';
     newProjectInput.placeholder = 'new project';
+    newProjectInput.required = true;
     inputContainer.appendChild(newProjectInput);
 
     const projectSubmit = document.createElement('div');
@@ -91,6 +92,7 @@ function initializeHome() {
     taskNameInput.type = 'text';
     taskNameInput.id = 'task-name-input';
     taskNameInput.placeholder = 'what do you want to do?';
+    taskNameInput.required = true;
 
     const taskDateInput = document.createElement('input');
     taskDateInput.className = 'task-input';
@@ -138,9 +140,73 @@ function initializeHome() {
     main.appendChild(addTasksContainer);
     main.appendChild(tasksContainer);
 
-    // Append sidebar and main to the document body
     document.body.appendChild(sidebar);
     document.body.appendChild(main);
+
+    const editTaskDialog = document.createElement('dialog');
+    editTaskDialog.id = 'editTaskDialog';
+
+    const editTaskForm = document.createElement('form');
+    editTaskForm.method = 'dialog';
+    editTaskForm.id = 'editTaskForm';
+
+    const taskNameEdit = document.createElement('input');
+    taskNameEdit.className = 'task-input';
+    taskNameEdit.type = 'text';
+    taskNameEdit.id = 'task-name-edit-input';
+    taskNameEdit.placeholder = 'what do you want to do?';
+    taskNameEdit.maxLength = 5;
+    taskNameEdit.required = true;
+
+    const taskDateEdit = document.createElement('input');
+    taskDateEdit.className = 'task-input';
+    taskDateEdit.id = 'task-date-edit-input';
+    taskDateEdit.type = 'date';
+
+    const taskPriorityEdit = document.createElement('select');
+    taskPriorityEdit.id = 'task-edit-priority-input';
+
+    const priorityOptions = [
+    { value: '', text: 'Priority', attributes: { disabled: true, hidden: true } },
+    { value: 'high', text: 'High' },
+    { value: 'medium', text: 'Medium' },
+    { value: 'low', text: 'Low' },
+    ];
+
+    priorityOptions.forEach(optionData => {
+    const option = document.createElement('option');
+    option.value = optionData.value;
+    option.textContent = optionData.text;
+    
+    if (optionData.attributes) {
+        Object.keys(optionData.attributes).forEach(attr => {
+        option.setAttribute(attr, optionData.attributes[attr]);
+        });
+    }
+    
+    taskPriorityEdit.appendChild(option);
+    });
+
+    const taskEditSubmit = document.createElement('button');
+    taskEditSubmit.type = 'submit';
+    taskEditSubmit.id = 'task-edit-submit';
+    taskEditSubmit.className = 'submit edit-submit';
+
+    const taskEditSubmitIcon = document.createElement('i');
+    taskEditSubmitIcon.className = 'material-icons-outlined checked-icon';
+    taskEditSubmitIcon.textContent = 'check';
+
+    taskEditSubmit.appendChild(taskEditSubmitIcon);
+
+    editTaskForm.appendChild(taskNameEdit);
+    editTaskForm.appendChild(taskDateEdit);
+    editTaskForm.appendChild(taskPriorityEdit);
+    editTaskForm.appendChild(taskEditSubmit);
+
+    editTaskDialog.appendChild(editTaskForm);
+
+    document.body.appendChild(editTaskDialog);
+
 
     UI.initialize()
 }

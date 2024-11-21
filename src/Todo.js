@@ -67,6 +67,11 @@ export default class ProjectManager{
     }
     static hasTasks(){
         return ProjectManager.projectList[ProjectManager.getSelectedProject()].hasTasks();
-
+    }
+    
+    static editTask(newTitle,newDate,newPriority,task){
+        task.setTitle(newTitle);
+        task.setDate(newDate);
+        task.setPriority(newPriority);
     }
 }

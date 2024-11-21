@@ -135,6 +135,11 @@ body {
     cursor: pointer;
     transition: box-shadow 0.3s ease; 
 }
+.edit-submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .submit:hover {
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
@@ -185,7 +190,7 @@ body {
     border-bottom: 0.3rem solid var(--border-color);
 }
 
-#task-priority-input {
+#task-priority-input, #task-edit-priority-input {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     margin: 0 auto;
@@ -225,6 +230,24 @@ body {
     max-width: 100%;
 
 
+}
+
+#editTaskDialog[open] {
+    z-index: 1;
+    position: relative;
+    margin:auto;
+    padding: 20px;
+    width: 70%;
+    display: flex;
+    background-color: var(--task-input-bg);
+    border-style: none;
+    border-radius: 10px;
+}
+
+#editTaskForm{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
 }
 
 .check-box{
