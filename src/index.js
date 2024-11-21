@@ -2,6 +2,7 @@ import './styles.css';
 import logo from './logo.png';
 
 import UI from './UI.js'
+import ProjectManager from './Todo.js'
 
 function initializeHome() {
     // Create sidebar
@@ -206,6 +207,10 @@ function initializeHome() {
     editTaskDialog.appendChild(editTaskForm);
 
     document.body.appendChild(editTaskDialog);
+
+    window.addEventListener('beforeunload',()=>{
+    ProjectManager.storeProjects();
+    })
 
 
     UI.initialize()

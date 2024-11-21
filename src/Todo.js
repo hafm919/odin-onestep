@@ -1,13 +1,43 @@
 import Project from './project.js'
 import Task from './task.js'
+import UI from './UI.js';
 export default class ProjectManager{
     static selectedProject = 'your-day';
     static projectList = {'your-day': new Project('your-day'),'important': new Project('important')}
     static allTasks = []
     static addToProject(task){
         let project = ProjectManager.projectList[ProjectManager.selectedProject]
+        project.addTask(task);
         ProjectManager.allTasks.push(task)
-        project.addTask(task)
+    }
+
+    static loadProjects(){
+        let storedProjectList = localStorage.getItem('projectList')
+        storedProjectList = JSON.parse(storedProjectList);
+
+        for(const projectName in storedProjectList){
+            let project = new Project(projectName)
+            ProjectManager.projectList[projectName] = project;
+            
+            let tasks  = storedProjectList[projectName]['tasks'];
+            for (let i in tasks){
+                if(!tasks[i]['deleted']){
+                    let task = ProjectManager.createTaskFromObject(tasks[i])
+                    ProjectManager.projectList[projectName].addTask(task)
+                    ProjectManager.allTasks.push(task)
+                }
+            }
+        }
+    }
+
+    static createTaskFromObject(obj){
+        return new Task(obj['title'],obj['date'],obj['priority'],obj['done'],obj['day'],obj['important'])
+
+    }
+
+    static storeProjects(){
+        localStorage.setItem('projectList',JSON.stringify(ProjectManager.projectList))
+        localStorage.setItem('allTask',JSON.stringify(ProjectManager.allTasks));
     }
 
     static addToImportant(task){
@@ -37,6 +67,10 @@ export default class ProjectManager{
             ProjectManager.projectList[selectedProject].removeTask()
         }
         
+    }
+
+    static getAllProjectNames(){
+        return Object.keys(ProjectManager.projectList);
     }
 
     static finishTask(task){

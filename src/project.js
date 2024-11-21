@@ -1,8 +1,8 @@
  export default class Project{
-    constructor(name){
+    constructor(name,taskCount=0){
         this.tasks=[]
         this.name=name
-        this.taskCount = 0
+        this.taskCount = taskCount
     }
     getTasks(){
         return this.tasks

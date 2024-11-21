@@ -1,14 +1,14 @@
 export default class Task{
     static globalTaskId = 0;
-    constructor(title, date, priority) {
+    constructor(title, date, priority,done = false ,day = false,important= false) {
         this.title = title
         this.date = date
         this.priority = priority;
         this.id = Task.globalTaskId++;
-        this.done = false;
-        this.day = false
-        this.important = false
-        this.deleted = false
+        this.done = done;
+        this.day = day;
+        this.important = important;
+        this.deleted = false;
     }
     getTitle(){
         return this.title

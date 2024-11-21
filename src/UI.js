@@ -14,6 +14,10 @@ export default class UI{
         const importantProject = document.getElementById('important');
         dayProject.addEventListener('click',UI.selectProject);
         importantProject.addEventListener('click',UI.selectProject);
+
+        ProjectManager.loadProjects();
+        UI.renderProjects();
+        UI.renderTasks();
         
         
     }
@@ -37,6 +41,7 @@ export default class UI{
         UI.clearInputs([taskNameInput,taskDateInput,taskPriorityInput]);
 
         UI.renderTasks();
+
 
         
         
@@ -263,14 +268,18 @@ export default class UI{
 
         return checkBox
     }
-    static createProject(){
-        const projectNameInput = document.getElementById('new-project-input');
-        if(!projectNameInput.checkValidity()){
-            projectNameInput.reportValidity()
-            return
+
+    static renderProjects(){
+        let projectNames = ProjectManager.getAllProjectNames()
+        for(let i in projectNames){
+            if (projectNames[i]!='your-day'&&projectNames[i]!='important'){
+                UI.renderProject(projectNames[i])
+            }
+            
         }
-        const projectName  = projectNameInput.value;
-        ProjectManager.createProject(projectName);
+    }
+
+    static renderProject(projectName){
         let newProject = document.createElement('div');
         const projectList = document.getElementById('projects-container')
         newProject.className = 'project user-project';
@@ -281,18 +290,25 @@ export default class UI{
         const projectTitle = document.createElement('h3');
         projectTitle.textContent = projectName;
         newProject.addEventListener('click',UI.selectProject)
-
-        
-        
-        
         newProject.appendChild(projectIcon);
         newProject.appendChild(projectTitle);
         projectList.appendChild(newProject);
+
+        return newProject
+    }
+    static createProject(){
+        const projectNameInput = document.getElementById('new-project-input');
+        if(!projectNameInput.checkValidity()){
+            projectNameInput.reportValidity()
+            return
+        }
+        const projectName  = projectNameInput.value;
+        ProjectManager.createProject(projectName)
+
+        const newProject = UI.renderProject(projectName);
+        
         UI.clearInputs([projectNameInput])
         newProject.dispatchEvent(new Event('click'));
-       
-        
-
     }
     static clearInputs(inputs){
         inputs.forEach(element => {
