@@ -93,7 +93,6 @@ export default class ProjectManager{
     static deleteProject(projectName){
         let project = ProjectManager.projectList[projectName]
         let tasks = project.getTasks()
-        console.log(project);
         for(let i in tasks){
             tasks[i].remove();
         }
