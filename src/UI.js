@@ -306,10 +306,7 @@ export default class UI{
 
         deleteIcon.addEventListener('click',(e)=>{
             let projectName = e.currentTarget.parentNode.id;
-            console.log(projectName);
             ProjectManager.deleteProject(projectName);
-            console.log(ProjectManager.getSelectedProject());
-            console.log(projectName);
             if(ProjectManager.getSelectedProject()==projectName){
                 const dayProject = document.getElementById('your-day');
                 dayProject.dispatchEvent(new Event('click'));
@@ -363,7 +360,6 @@ export default class UI{
         let selectedProject = e.currentTarget
         ProjectManager.setSelectedProject(selectedProject.id);
         let projects = document.getElementsByClassName('selected')
-        console.log('fired')
         if(projects.length>0){
             projects[0].classList.remove('selected');
         }

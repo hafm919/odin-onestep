@@ -90,8 +90,14 @@ export default class ProjectManager{
     static setSelectedProject(project){
         ProjectManager.selectedProject = project
     }
-    static deleteProject(project){
-        ProjectManager.projectList[project].remove()
+    static deleteProject(projectName){
+        let project = ProjectManager.projectList[projectName]
+        let tasks = project.getTasks()
+        console.log(project);
+        for(let i in tasks){
+            tasks[i].remove();
+        }
+        project.remove()
     }
     static checkIfDeleted(project){
         return ProjectManager.projectList[project].deleted;
