@@ -94,6 +94,7 @@ function initializeHome() {
     taskNameInput.id = 'task-name-input';
     taskNameInput.placeholder = 'what do you want to do?';
     taskNameInput.required = true;
+    taskNameInput.maxLength = 30;
 
     const taskDateInput = document.createElement('input');
     taskDateInput.className = 'task-input';
@@ -156,7 +157,7 @@ function initializeHome() {
     taskNameEdit.type = 'text';
     taskNameEdit.id = 'task-name-edit-input';
     taskNameEdit.placeholder = 'what do you want to do?';
-    taskNameEdit.maxLength = 5;
+    taskNameEdit.maxLength = 30;
     taskNameEdit.required = true;
 
     const taskDateEdit = document.createElement('input');
