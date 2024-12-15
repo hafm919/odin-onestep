@@ -1,362 +1,350 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 :root {
-    --sidebar: #D2DED8;
-    --main-bg: #FBFBFB;
-    --accent: #143E47;
-    --default-font: 'Raleway';
-    --day: #CE6B02;
-    --imp: #A93436;
-    --input-bg: #FFFFFF;
-    --input-text: #333333;
-    --task-input-bg: #7CD4D0;
-    --no-tasks-text: gray;
-    --selected-bg: #F6FFE1;
-    --border-color: transparent;
-    --task-bg:#F9FBFA;
-    --task-text:#909391;
-    --high:#C37E90;
-    --low:#97C2AF;
-    --medium:#F1DDA2;
+  --sidebar: #d2ded8;
+  --main-bg: #fbfbfb;
+  --accent: #143e47;
+  --default-font: "Raleway";
+  --day: #ce6b02;
+  --imp: #a93436;
+  --input-bg: #ffffff;
+  --input-text: #333333;
+  --task-input-bg: #7cd4d0;
+  --no-tasks-text: gray;
+  --selected-bg: #f6ffe1;
+  --border-color: transparent;
+  --task-bg: #f9fbfa;
+  --task-text: #909391;
+  --high: #c37e90;
+  --low: #97c2af;
+  --medium: #f1dda2;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    font-family: var(--default-font);
-    color: var(--accent);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  font-family: var(--default-font);
+  color: var(--accent);
 }
 
 .sidebar {
-    background-color: var(--sidebar);
-    display: grid;
-    grid-template-rows: 0.75fr 1fr 1.5fr 0.5fr;
-    overflow: hidden;
+  background-color: var(--sidebar);
+  display: grid;
+  grid-template-rows: 0.75fr 1fr 1.5fr 0.5fr;
+  overflow: hidden;
 }
 
 .logo-container {
-    padding: 0.625rem;
-    justify-self: center;
+  padding: 0.625rem;
+  justify-self: center;
 }
 
 .project {
-    box-sizing: border-box;
-    padding: 0.625rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    cursor: pointer;
-    border-radius: 0.625rem;
-    border: 2px solid transparent;
-    transition: border 0.2s ease;
-
+  box-sizing: border-box;
+  padding: 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
 }
 
 .project:hover {
-    box-sizing: border-box;
-    border: 2px var(--accent) solid;
+  box-sizing: border-box;
+  border: 2px var(--accent) solid;
 }
 
-#projects-container{
-    padding: .5rem;
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+#projects-container {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
-.user-project{
-    font-size: 1rem;
-    height: 1.5rem;
-    gap: 1.25rem;
-    padding: 1rem;
-    align-items: center;
-}
-
-.selected{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: var(--selected-bg);
-
+.user-project {
+  font-size: 1rem;
+  height: 1.5rem;
+  gap: 1.25rem;
+  padding: 1rem;
+  align-items: center;
 }
 
+.selected {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: var(--selected-bg);
+}
 
 .main {
-    background-color: var(--main-bg);
-    background-image: url('rocks.svg');
-    background-position-y: bottom;
-    background-position-x: right;
-    background-repeat: no-repeat;
-    background-size: 130%;
-    display: flex;
-    flex-direction: column;
-    padding: 1.875rem;
-    padding-top: 3rem;
-    max-height: 100vh;
-    overflow: auto;
+  background-color: var(--main-bg);
+  background-image: url("rocks.svg");
+  background-position-y: bottom;
+  background-position-x: right;
+  background-repeat: no-repeat;
+  background-size: 130%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.875rem;
+  padding-top: 3rem;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 .day-imp-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1.25rem;
 }
 
 .day-icon {
-    font-size: 2.5rem;
-    color: var(--day);
+  font-size: 2.5rem;
+  color: var(--day);
 }
 .project-icon {
-    font-size: 1.5rem;
-    color: var(--accent);
+  font-size: 1.5rem;
+  color: var(--accent);
 }
 
 .delete-icon {
-    font-size: 1.5rem;
-    color: var(--accent);
-    margin-left: auto;
-    cursor: pointer;
-    transition: transform .2s;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-left: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.delete-icon:hover{
-    transform: scale(1.05);
+.delete-icon:hover {
+  transform: scale(1.05);
 }
-
-
 
 .imp-icon {
-    font-size: 2.5rem;
-    color: var(--imp);
+  font-size: 2.5rem;
+  color: var(--imp);
 }
 
 .new-project {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .submit {
-    background-color: var(--accent);
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 100%;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease; 
+  background-color: var(--accent);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
 }
-.edit-submit{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.edit-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .submit:hover {
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 
 #new-project-input {
-    font-family: 'Roboto', sans-serif;
-    color: var(--input-text);
-    font-size: 1.25rem;
-    margin: 0 auto;
-    padding: 0.625rem;
-    border-radius: 0.2rem;
-    background-color: var(--input-bg);
-    border: none;
-    width: 90%;
-    display: block;
-    border-bottom: 0.3rem solid var(--border-color);
+  font-family: "Roboto", sans-serif;
+  color: var(--input-text);
+  font-size: 1.25rem;
+  margin: 0 auto;
+  padding: 0.625rem;
+  border-radius: 0.2rem;
+  background-color: var(--input-bg);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.3rem solid var(--border-color);
 }
 
 .input-container {
-    height: 3.125rem;
+  height: 3.125rem;
 }
 
 .add-icon {
-    font-size: 2.5rem;
-    color: var(--main-bg);
+  font-size: 2.5rem;
+  color: var(--main-bg);
 }
 
 .add-tasks-container {
-    display: flex;
-    background-color: var(--task-input-bg);
-    height: 4.6875rem;
-    border-radius: 0.625rem;
-    padding: 0.9375rem;
+  display: flex;
+  background-color: var(--task-input-bg);
+  height: 4.6875rem;
+  border-radius: 0.625rem;
+  padding: 0.9375rem;
 }
 
 .task-input {
-    font-family: 'Roboto', sans-serif;
-    color: var(--input-text);
-    font-size: 1rem;
-    margin: 0 auto;
-    padding: 0.625rem;
-    border-radius: 0.2rem;
-    background-color: var(--input-bg);
-    border: none;
-    width: 25%;
-    display: block;
-    border-bottom: 0.3rem solid var(--border-color);
+  font-family: "Roboto", sans-serif;
+  color: var(--input-text);
+  font-size: 1rem;
+  margin: 0 auto;
+  padding: 0.625rem;
+  border-radius: 0.2rem;
+  background-color: var(--input-bg);
+  border: none;
+  width: 25%;
+  display: block;
+  border-bottom: 0.3rem solid var(--border-color);
 }
 
-#task-priority-input, #task-edit-priority-input {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    margin: 0 auto;
-    padding: 0.625rem;
-    border-radius: 0.2rem;
-    background-color: var(--input-bg);
-    border: none;
-    width: 25%;
-    display: block;
-    border-bottom: 0.3rem solid var(--border-color);
-    cursor: pointer;
+#task-priority-input,
+#task-edit-priority-input {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  margin: 0 auto;
+  padding: 0.625rem;
+  border-radius: 0.2rem;
+  background-color: var(--input-bg);
+  border: none;
+  width: 25%;
+  display: block;
+  border-bottom: 0.3rem solid var(--border-color);
+  cursor: pointer;
 }
 
 .no-tasks {
-    padding-top: 9.375rem !important; 
-    padding-left: 6.25rem !important;
-    display: flex;
-    flex-direction: row !important;
-    height: 100%;
-    align-items: center;
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: var(--no-tasks-text);
+  padding-top: 9.375rem !important;
+  padding-left: 6.25rem !important;
+  display: flex;
+  flex-direction: row !important;
+  height: 100%;
+  align-items: center;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--no-tasks-text);
 }
 
-.task-card{
-    display: flex;
-    background-color: var(--task-bg);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    height: 4.6875rem;
-    border-radius: 0.625rem;
-    padding: 1rem;
-    gap: 20px;
-    align-items: center;
-    color: var(--task-text);
-    font-weight: 100;
-    max-width: 100%;
-
-
+.task-card {
+  display: flex;
+  background-color: var(--task-bg);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 4.6875rem;
+  border-radius: 0.625rem;
+  padding: 1rem;
+  gap: 20px;
+  align-items: center;
+  color: var(--task-text);
+  font-weight: 100;
+  max-width: 100%;
 }
 
 #editTaskDialog[open] {
-    z-index: 1;
-    position: relative;
-    margin:auto;
-    padding: 20px;
-    width: 70%;
-    display: flex;
-    background-color: var(--task-input-bg);
-    border-style: none;
-    border-radius: 10px;
+  z-index: 1;
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  width: 70%;
+  display: flex;
+  background-color: var(--task-input-bg);
+  border-style: none;
+  border-radius: 10px;
 }
 
-#editTaskForm{
-    width: 100%;
-    justify-content: space-between;
-    display: flex;
+#editTaskForm {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
 }
 
-.check-box{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1;
-    border-radius: 100%;
-    border: 1px  var(--accent) solid;
-    height: 100%;
-    transition: transform .2s;
-    cursor: pointer;
+.check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  border: 1px var(--accent) solid;
+  height: 100%;
+  transition: transform 0.2s;
+  cursor: pointer;
 }
 
-.check-box:hover{
-    transform: scale(1.05);
+.check-box:hover {
+  transform: scale(1.05);
 }
 
-.unchecked-icon{
-    font-size: 2rem;
-    color: var(--accent);
+.unchecked-icon {
+  font-size: 2rem;
+  color: var(--accent);
 }
 
-.checked-icon{
-    font-size: 2rem;
-    color: var(--main-bg);
+.checked-icon {
+  font-size: 2rem;
+  color: var(--main-bg);
 }
 
-.checked{
-    background-color: var(--accent);
+.checked {
+  background-color: var(--accent);
 }
 
-i{
-    user-select: none;
+i {
+  user-select: none;
 }
 
-.task-options{
-    display: flex;
-    margin-left: auto;
-    gap:5px;
+.task-options {
+  display: flex;
+  margin-left: auto;
+  gap: 5px;
 }
 
-.option-icon{
-    color: var(--task-text);
-    cursor: pointer;
-    transition: transform .2s;
+.option-icon {
+  color: var(--task-text);
+  cursor: pointer;
+  transition: transform 0.2s;
 }
-.option-icon:hover{
-    transform: scale(1.05);
-}
-
-
-.option-day{
-    color: var(--day)
-}
-.option-important{
-    color:var(--imp)
-
-}
-.task-text-container{
-    display: flex;
-    gap: 30px;
-    width: 70%;
-    justify-content: space-between;
+.option-icon:hover {
+  transform: scale(1.05);
 }
 
-
-
-.high{
-    border-left: 10px var(--high) solid;
+.option-day {
+  color: var(--day);
 }
-.medium{
-    border-left: 10px var(--medium) solid;
+.option-important {
+  color: var(--imp);
 }
-.low{
-    border-left: 10px var(--low) solid;
-}
-
-.task-text{
-    font-weight: 400;
+.task-text-container {
+  display: flex;
+  gap: 30px;
+  width: 70%;
+  justify-content: space-between;
 }
 
-#tasks-container{
-    padding-top: 1.25rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    overflow: auto;
-    width: 100%;
-    height: 100%;
+.high {
+  border-left: 10px var(--high) solid;
+}
+.medium {
+  border-left: 10px var(--medium) solid;
+}
+.low {
+  border-left: 10px var(--low) solid;
 }
 
+.task-text {
+  font-weight: 400;
+}
 
-.strike{
-    text-decoration: line-through;
+#tasks-container {
+  padding-top: 1.25rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
 
+.strike {
+  text-decoration: line-through;
 }
