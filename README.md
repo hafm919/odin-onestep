@@ -1,13 +1,13 @@
 # OneStep
 
-![empty-state](image.png)
-
-This project is **OneStep**, a To-Do App built using **JavaScript**, created as part of **The Odin Project**. It features project-based task organization and special sections for daily tasks and important tasks. The app's **calming and minimalist UI** is designed to provide a stress-free environment for managing your tasks effectively. Through this project, I deepened my understanding of **ES6 modules**, **classes**, **local storage**, **npm**, and **webpack**.
-
 ![javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![css](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=Webpack&logoColor=white)
+
+![empty-state](image.png)
+
+This project is **OneStep**, a To-Do App built using **JavaScript**, created as part of **The Odin Project**. It features project-based task organization and special sections for daily tasks and important tasks. The app's **calming and minimalist UI** is designed to provide a stress-free environment for managing your tasks effectively. Through this project, I deepened my understanding of **ES6 modules**, **classes**, **local storage**, **npm**, and **webpack**.
 
 ---
 
